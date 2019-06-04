@@ -19,30 +19,41 @@ class String {
   /** at(int position)
    * Returns the character at the given position, throws an exception if the
    * position is out of bounds.
-   * O(?)
+   * O(n)
+   * big-omega(n)
+   * theta(n)
    */
   char at(int) const;
 
   /** empty()
    * Returns whether or not the string is empty.
-   * O(?)
+   * O(n)
+   * big-omega(n)
+   * theta(n)
    */
   bool empty() const;
 
   /** size()
    * Returns the number of characters in the string.
+   * O(n)
+   * big-omega(n)
+   * theta(n)
    */
   unsigned int size() const;
 
   /** capacity()
    * Returns the number of characters that the string can hold.
-   * O(?)
+   * O(n)
+   * big-omega(n)
+   * theta(n)
    */
   unsigned int capacity() const;
 
   /** reserve(int extra)
    * Reserves extra amount of characters, extending the capacity of the string.
-   * O(?)
+   * O(1)
+   * big-omega(1)
+   * theta(1)
    */
   void reserve(unsigned int);
 
@@ -56,9 +67,9 @@ class String {
   /** erase(char)
    * Erases all copies of the given character from the string.
    * O(?)
-   */
-  void erase(char);
 
+  void erase(char);
+*/
   /** remove(int index)
    * Removes the character at the given index.
    * O(?)
@@ -223,7 +234,7 @@ TEST_CASE("Empty") {
     CHECK_FALSE(s.empty());
   }
 }
-
+/*
 TEST_CASE("Erase") {
   String s((char*)"Testing, 1, 2, 3. TTT");
   s.erase('t');
@@ -232,7 +243,7 @@ TEST_CASE("Erase") {
   CHECK_EQ(s.at(0), 'e');
   CHECK_EQ(s.at(13), '.');
   CHECK_THROWS(s.at(15));
-}
+}*/
 
 TEST_CASE("Find") {
   SUBCASE("Character arrays") {
