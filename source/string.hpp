@@ -20,7 +20,7 @@ class String {
    * Returns the character at the given position, throws an exception if the
    * position is out of bounds.
    * O(n)
-   * big-omega(n)
+   * omega(n)
    * theta(n)
    */
   char at(int) const;
@@ -28,7 +28,7 @@ class String {
   /** empty()
    * Returns whether or not the string is empty.
    * O(n)
-   * big-omega(n)
+   * omega(n)
    * theta(n)
    */
   bool empty() const;
@@ -36,7 +36,7 @@ class String {
   /** size()
    * Returns the number of characters in the string.
    * O(n)
-   * big-omega(n)
+   * omega(n)
    * theta(n)
    */
   unsigned int size() const;
@@ -44,7 +44,7 @@ class String {
   /** capacity()
    * Returns the number of characters that the string can hold.
    * O(n)
-   * big-omega(n)
+   * omega(n)
    * theta(n)
    */
   unsigned int capacity() const;
@@ -52,7 +52,7 @@ class String {
   /** reserve(int extra)
    * Reserves extra amount of characters, extending the capacity of the string.
    * O(1)
-   * big-omega(1)
+   * omega(1)
    * theta(1)
    */
   void reserve(unsigned int);
@@ -60,31 +60,38 @@ class String {
   /** insert(char c, int index)
    * Inserts the given character `c` into the string at the given index.
    * If the index is out of bounds the character should appended / prepended.
-   * O(?)
+   * O(n^2)
+   * omega(n)
    */
   void insert(char, int);
 
   /** erase(char)
    * Erases all copies of the given character from the string.
-   * O(?)
-
+   * O(n^2)
+   * omega(n)
+   */
   void erase(char);
-*/
+
   /** remove(int index)
    * Removes the character at the given index.
-   * O(?)
+   * O(n)
+   * omega(n)
    */
   void remove(int);
 
   /** append(char)
    * Appends the given character to the string.
-   * O(?)
+   * O(n)
+   * omega(n)
+   * theta(n)
    */
   void append(char);
 
   /** prepend(char)
    * Prepends the given character to the string.
-   * O(?)
+   * O(n)
+   * omega(n)
+   * theta(n)
    */
   void prepend(char);
 
@@ -93,14 +100,14 @@ class String {
    * O(?)
    */
   bool compare(char*) const;
-  bool compare(String) const;
+  bool compare(String&) const;
 
   /** concate(char* or String)
    * Concatenates the string with the given character array, or string.
    * O(?)
    */
   void concatenate(char*);
-  void concatenate(String);
+  void concatenate(String&);
 
   /** find(char* or char or String)
    * Returns the index of the first occurrence of the character array, char, or
@@ -109,7 +116,7 @@ class String {
    */
   unsigned int find(char*, int start = 0) const;
   unsigned int find(char, int start = 0) const;
-  unsigned int find(String, int start = 0) const;
+  unsigned int find(String&, int start = 0) const;
 
   /** reverse()
    * Reverses the string in-place.
@@ -234,16 +241,18 @@ TEST_CASE("Empty") {
     CHECK_FALSE(s.empty());
   }
 }
-/*
+
 TEST_CASE("Erase") {
   String s((char*)"Testing, 1, 2, 3. TTT");
   s.erase('t');
   CHECK_EQ(s.at(3), 'i');
   s.erase('T');
   CHECK_EQ(s.at(0), 'e');
-  CHECK_EQ(s.at(13), '.');
+  CHECK_EQ(s.at(14), '.');
   CHECK_THROWS(s.at(15));
-}*/
+  CHECK_EQ(s.at(13), '3');
+  CHECK_THROWS(s.at(16));
+}
 
 TEST_CASE("Find") {
   SUBCASE("Character arrays") {
@@ -269,11 +278,11 @@ TEST_CASE("Find") {
 
 TEST_CASE("Insert") {
   String s;
-  s.insert(0, 'a');
+  s.insert('a', 0);
   CHECK_EQ(s.at(0), 'a');
-  s.insert(-1, 'b');
+  s.insert('b', -1);
   CHECK_EQ(s.at(0), 'b');
-  s.insert(10, 'c');
+  s.insert('c', 10);
   CHECK_EQ(s.at(2), 'c');
   s.insert('d', 1);
   CHECK_EQ(s.at(1), 'd');
@@ -295,7 +304,7 @@ TEST_CASE("Remove") {
   CHECK_EQ(s.at(0), 'e');
   s.remove(1);
   CHECK_EQ(s.at(0), 'e');
-  CHECK_EQ(s.at(1), 's');
+  CHECK_EQ(s.at(1), 't');
 }
 
 TEST_CASE("Reserve") {
@@ -324,7 +333,7 @@ TEST_CASE("Size") {
 
 TEST_CASE("Substr") {
   String s((char*)"abcdef");
-  CHECK(s.substr(1, 3).compare(String((char*)"bc")));
+  CHECK(s.substr(1, 3).compare((char*)"bc"));
 }
 
 TEST_CASE("To Int") {
