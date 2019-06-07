@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CSC 212: Data Structures and Algorithms
 
 Welcome to CSC 212, Data Structures and Algorithms!
@@ -36,3 +37,7 @@ Welcome to CSC 212, Data Structures and Algorithms!
 - [VS Code: Getting Started](https://code.visualstudio.com/docs/getstarted/introvideos)
   - Watch: Introductory Videos (all)
   - Read: Tips and Tricks, User Interface, Themes, and Settings
+=======
+# algorithms
+Class repository for CSC 212 Data Structures and Algorithms
+>>>>>>> 5e2584c302a89739d55e96a2d085cf7624539f3c
