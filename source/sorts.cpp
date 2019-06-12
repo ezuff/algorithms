@@ -82,3 +82,35 @@ void mergesort(int* arr, int n) {
     merge(arr, n, n / 2);
   }
 }
+void quicksort(int* arr, int n) {
+  int lo, hi;
+  lo = 0;
+  hi = n - 1;
+  quicksort(arr, lo, hi);
+}
+void quicksort(int* arr, int lo, int hi) {
+  if (lo < hi) {
+    int p = partition(arr, lo, hi);
+    quicksort(arr, lo, p - 1);
+    quicksort(arr, p + 1, hi);
+  }
+}
+// Best:: O(nlogn), Worst:: O(n^2)
+int partition(int* arr, int lo, int hi) {
+  int i = lo + 1, j = hi;
+  while (true) {
+    while (arr[i] <= arr[lo] && i < hi) {
+      i++;
+    }
+    while (arr[j] >= arr[lo] && j > lo) {
+      j--;
+    }
+    if (j <= i) {
+      break;
+    }
+    swap(&arr[i], &arr[j]);
+  }
+
+  swap(&arr[lo], &arr[j]);
+  return j;
+}

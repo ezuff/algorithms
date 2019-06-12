@@ -5,12 +5,11 @@ Welcome to CSC 212, Data Structures and Algorithms!
 
 ## Resources
 
+- [Website](https://thoward27.github.io/algorithms/)
 - [Syllabus](docs/syllabus.md)
 - [Schedule](docs/schedule.md)
 - [FAQ](docs/FAQ.md)
-- [Github Handbook](docs/github.md)
-- [IDE Guide](docs/IDE.md)
-- [Crash Course C++](docs/notes/CrashCourseCpp.pdf)
+- [Setup](docs/setup/)
 - [Slack Room](https://csc212.slack.com/)
 - [DevDocs](https://devdocs.io/)
 - [Cheat Sheets](docs/cheat_sheets/)
@@ -37,7 +36,18 @@ Welcome to CSC 212, Data Structures and Algorithms!
 - [VS Code: Getting Started](https://code.visualstudio.com/docs/getstarted/introvideos)
   - Watch: Introductory Videos (all)
   - Read: Tips and Tricks, User Interface, Themes, and Settings
-=======
 # algorithms
 Class repository for CSC 212 Data Structures and Algorithms
->>>>>>> 5e2584c302a89739d55e96a2d085cf7624539f3c
+=======
+
+## Notes
+
+- [C++](docs/notes/CrashCourseCpp.pdf)
+- [Functions](docs/notes/functions.html)
+- [Sorting](docs/notes/sorting.html)
+
+## Exam Review
+
+- [E01 Review](docs/exams/E01R.md)
+- [E01 Review Answers](docs/exams/E01RA.md)
+>>>>>>> upstream/master

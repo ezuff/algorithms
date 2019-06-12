@@ -1,312 +1,259 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "string.hpp"
 
-String::String()
-{
-    array = new char [1];
-    array[0] = '\0';
+// Inclusions go here:
+// #include <iostream>
+
+String::String() {
+  // Allocate space.
+  array = new char[1];
+
+  // Add the null.
+  array[0] = '\0';
+
+  // Adjust private variables.
+  _capacity = 0;
 }
 
-String::String(char* string)
-{
-    unsigned int length = 0;
-    while(string[length] != '\0') ++length;
+String::String(char c) {
+  // Allocate space.
+  array = new char[2];
 
-    array = new char [length];
+  // Add the character and the null.
+  array[0] = c;
+  array[1] = '\0';
 
-    for(int j = 0; j < length; ++j)
-    {
-        array[j] = string[j];
+  // Adjust private variables.
+  _capacity = 1;
+}
+
+String::String(char* str) {
+  // Get the length of the incoming string.
+  int length = 0;
+  while (str[length])
+    ++length;
+
+  // Allocate space for the string plus a null.
+  array = new char[length + 1];
+
+  // Fill our array up, including the null.
+  for (int i = 0; i <= length; ++i)
+    array[i] = str[i];
+
+  // Adjust private variables.
+  _capacity = length;
+}
+
+String::~String() {
+  delete[] array;
+}
+
+char String::at(int index) const {
+  // If our index is negative, or beyond the size of our array, we cannot return
+  // anything.
+  return (index < 0 || index >= this->size()) ? throw "Index" : array[index];
+}
+
+unsigned int String::size() const {
+  int length = 0;
+  while (array[length])
+    ++length;
+  return length;
+}
+
+bool String::empty() const {
+  return this->size() == 0;
+}
+
+unsigned int String::capacity() const {
+  return this->_capacity;
+}
+
+void String::reserve(unsigned int n) {
+  if (!n)
+    return;
+
+  // Make a new array.
+  char* _array = new char[_capacity + n + 1]();
+
+  // Fill it up.
+  int length = this->size();
+  for (int i = 0; i <= length; ++i)
+    _array[i] = array[i];
+
+  // Remove old memory.
+  delete[] array;
+
+  // Save new memory.
+  array = _array;
+
+  // Adjust private variables.
+  _capacity += n;
+  return;
+}
+
+void String::insert(char c, int index) {
+  // Prepend and append as easy cases.
+  if (index < 0)
+    prepend(c);
+  else if (index >= size())
+    append(c);
+  else {
+    // Increase capacity, if needed.
+    if (this->size() == this->_capacity) {
+      this->reserve(this->size() * 2);
     }
+    // Move all elements after index over.
+    for (int i = this->size() + 1; i >= index; --i)
+      array[i] = array[i - 1];
+    // Insert our new character.
+    array[index] = c;
+  }
+  return;
 }
 
-String::String(char c)
-{
-    array = new char (c);
+void String::erase(char c) {
+  // Create a new array.
+  char* _array = new char[_capacity + 1];
+
+  // Copy all non-erased characters to the new array.
+  int length = size();
+  for (int i = 0, j = 0; i <= length; ++i) {
+    if (array[i] != c)
+      _array[j++] = array[i];
+  }
+
+  // Remove the old array.
+  delete[] array;
+  array = _array;
+  return;
 }
 
-String::~String()
-{
-    delete[] array;
+void String::remove(int index) {
+  // Copy all characters to the left, overwriting index.
+  int length = this->size();
+  for (int i = index; i < length; ++i)
+    array[i] = array[i + 1];
+  return;
 }
 
-char String::at(int x) const
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
-
-    return (x >= 0 && x < length) ? array[x] : throw x;
+void String::append(char c) {
+  int length = size();
+  if (length == this->capacity()) {
+    this->reserve(length * 2);
+  }
+  array[length] = c;
+  array[length + 1] = 0;
+  return;
 }
 
-bool String::empty() const
-{
-    return (array[0] == '\0') ? true : false;
+void String::prepend(char c) {
+  int length = size();
+  if (length == this->capacity()) {
+    this->reserve(length * 2);
+  }
+  for (int i = length + 1; i >= 0; --i)
+    array[i] = array[i - 1];
+  array[0] = c;
+  return;
 }
 
-unsigned int String::size() const
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
-
-    return length;
+bool String::compare(char* str) const {
+  int length = size();
+  // Compare all the way up to the null.
+  for (int i = 0; i <= length; ++i) {
+    if (str[i] != array[i])
+      return false;
+  }
+  return true;
 }
 
-unsigned int String::capacity() const
-{
-    return this->String::size();
+bool String::compare(String& str) const {
+  return this->compare(str.array);
 }
 
-void String::reserve(unsigned int extra)
-{
-    unsigned int length = this->String::size();
-
-    char* newArray = new char [length + extra];
-    newArray = array;
-    this->~String();
-    array = newArray;
+void String::concatenate(char* str) {
+  // Get our lengths.
+  int strlen = 0, length = size();
+  while (str[strlen])
+    ++strlen;
+  // Reserve the space/
+  if (length + strlen > this->_capacity) {
+    this->reserve(strlen);
+  }
+  // Copy things over.
+  for (int i = length, j = 0; i <= length + strlen; ++i, ++j) {
+    this->array[i] = str[j];
+  }
+  return;
 }
 
-void String::remove(int x)
-{
-    unsigned int length = this->String::size();
-
-    char* newArray = new char [length];
-
-    for(int i = 0; i < length; ++i)
-    {
-        if(i < x) newArray[i] = array[i];
-        else newArray[i] = array[i + 1];
-    }
-
-    delete[] array;
-    array = new char [length];
-
-    for(int j = 0; j < length; ++j) array[j] = newArray[j];
-
-    delete[] newArray;
+void String::concatenate(String& str) {
+  this->concatenate(str.array);
+  return;
 }
 
-
-void String::erase(char c)
-{
-    unsigned int length = this->String::size();
-    for(int i = 0; i < length; ++i)
-    {
-        if(array[i] == c)
-        {
-            this->String::remove(i);
-            i--;
-            length--;
-        }
-    }
-    if(array[length - 1] == ' ')
-    {
-        this->String::remove(length - 1);
-    }
+bool exact_match(char* a, char* b) {
+  return (!b[0]) ? true : a[0] == b[0] && exact_match(a + 1, b + 1);
+}
+unsigned int String::find(char* str, int start) const {
+  unsigned int i = start, length = size();
+  for (i, length; i < length; ++i) {
+    if (exact_match(this->array + i, str))
+      return i;
+  }
+  return i;
 }
 
-
-void String::append(char c)
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
-
-    char* newArray = new char [length + 1];
-
-    for(int i = 0; i < length; ++i)
-    {
-        newArray[i] = array[i];
-    }
-
-    delete[] array;
-    array = new char [length + 1];
-
-    for(int j = 0; j < length; ++j) array[j] = newArray[j];
-
-    delete[] newArray;
-
-    array[length] = c;
-    array[length + 1] = '\0';
+unsigned int String::find(char c, int start) const {
+  unsigned int i = start, length = size();
+  for (i, length; i < length; ++i)
+    if (array[i] == c)
+      return i;
+  return i;
 }
 
-void String::prepend(char c)
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
-
-    char* newArray = new char [length + 1];
-
-    for(int i = 0; i < length; ++i)
-    {
-        newArray[i] = array[i];
-    }
-
-    delete[] array;
-    array = new char [length + 1];
-
-    array[0] = c;
-    for(int j = 0; j < length; ++j) array[j + 1] = newArray[j];
-
-    array[length + 1] = '\0';
-
-    delete[] newArray;
-
+unsigned int String::find(String& str, int start) const {
+  return this->find(str.array, start);
 }
 
-void String::insert(char c, int x)
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
-
-    char* newArray = new char [length + 1];
-
-    for(int i = 0; i < length; ++i)
-    {
-        newArray[i] = array[i];
-    }
-
-    delete[] array;
-    array = new char [length + 1];
-
-    if(x >= 0 && x <= length)
-    {
-        for(int j = 0; j < x; ++j) array[j] = newArray[j];
-
-        array[x] = c;
-
-        for(int k = x; k < length; ++k) array[k + 1] = newArray[k];
-
-        array[length + 1] = '\0';
-    }
-    else if(x < 0)
-    {
-        this->String::prepend(c);
-    }
-    else
-    {
-        this->String::insert(c, 2);
-    }
-
-    delete[] newArray;
+void String::reverse() {
+  int length = size() - 1;
+  for (int i = 0; i < length / 2; ++i) {
+    array[i] ^= array[length - i];
+    array[length - i] ^= array[i];
+    array[i] ^= array[length - i];
+  }
+  return;
 }
 
-bool String::compare(char *string) const
-{
-    for(int i = 0; i < this->String::size(); ++i) return(array[i] != string[i]) ? false : true;
+void String::shift(int n) {
+  int length = size();
+  for (int i = 0; i < length; ++i) {
+    array[i] = array[i] + n % 255;
+    if (!array[i])
+      ++array[i];
+  }
+  return;
 }
 
-bool String::compare(String& compare) const
-{
-    unsigned int length = 0;
-    while(array[length] != '\0') ++length;
+int chartoint(char c) {
+  return ('0' <= c && c <= '9') ? c - 48 : throw "bad input";
+}
+int String::toInt() const {
+  int len = size();
+  int out = 0;
 
-    for(int i = 0; i < length; ++i) return(this->array[i] != compare.array[i]) ? false : true;
+  for (int i = 0; i < len; ++i) {
+    out += chartoint(array[len - i - 1]) * pow(10, i);
+  }
+
+  return out;
 }
 
-void String::concatenate(char *string)
-{
-    unsigned int length = 0;
-    while(string[length] != '\0') ++length;
-
-    if(length == 0)
-    {
-        this->String::append('\0');
-    }
-    else
-    {
-        this->String::append(string[0]);
-        this->String::concatenate(string + 1);
-    }
+String String::substr(int start, int end) const {
+  String ret;
+  for (int i = start; i < end; ++i)
+    ret.append(array[i]);
+  return ret;
 }
-
-void String::concatenate(String& string)
-{
-
-}
-
-unsigned int String::find(char* string, int start) const
-{
-    for(int i = start; i < this->String::size(); ++i)
-    {
-        if(array[i] == string[0])
-        {
-            bool test = this->String::compare(string);
-            if(test == true)
-            {
-                return i;
-                break;
-            }
-        }
-    }
-    return this->String::size();
-}
-
-unsigned int String::find(char c, int start) const
-{
-    for(start; start < this->String::size(); ++start)
-    {
-        if(array[start] == c)
-        {
-            return start;
-            break;
-        }
-    }
-    return this->String::size();
-}
-
-unsigned int String::find(String& string, int start) const
-{
-
-}
-
-void String::reverse()
-{
-
-}
-
-void String::shift(int x)
-{
-
-}
-
-int String::toInt() const
-{
-    int total = 0;
-
-    for(int i = 0; i < this->String::size(); ++i)
-    {
-        if((int)array[i] > 57)
-        {
-            throw total;
-            break;
-        }
-        else
-        {
-            total += (int)array[i];
-
-            if(i != this->String::size())
-            {
-                total *= 10;
-            }
-        }
-    }
-    return total;
-}
-
-String String::substr(int x, int y) const
-{
-    char* sub = new char [y - x + 1];
-    int i = 0;
-
-    for(int x = x; x < y; ++x)
-    {
-        sub[i] = array[x];
-        ++i;
-    }
-
-    sub[y] = '\0';
-
-    String string(sub);
-    return string;
-}
-

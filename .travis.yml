@@ -1,0 +1,31 @@
+dist: xenial
+language:
+  - cpp
+compiler:
+  - gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-8
+      - g++-8
+
+matrix:
+  include:
+    - name: "Strings"
+      env: 
+      - SOURCE=source/string.cpp
+    - name: "Iterative Functions"
+      env:
+      - SOURCE=source/functions.cpp
+    - name: "Recursive Functions"
+      env:
+      - SOURCE=source/functions_recursive.cpp
+    - name: "Sorts"
+      env:
+      - SOURCE=source/sorts.cpp
+
+script:
+  - echo $SOURCE
+  - g++-8 -std=c++11 $SOURCE && ./a.out

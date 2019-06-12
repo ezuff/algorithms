@@ -8,7 +8,7 @@
     @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
     @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
     @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-    @import "style.css";
+    @import "static/base.css";
   </style>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -27,7 +27,7 @@ layout: true
 ---
 class: center, middle
 
-# Functions on Arrays
+# Functions
 
 ---
 
@@ -42,8 +42,10 @@ class: center, middle
    4. Inputs / Outputs / Side Effects
    5. Scope
 2. [Runtime Analysis](#runtime)
-   1. Empirical Analysis
-   2. Asymptotic Analysis
+   1. Introduction
+   2. Empirical Analysis
+      1. Pros and Cons
+   3. Asymptotic Analysis
       1. Big-Oh, Omega, Theta
       2. Dominant Terms
 3. [Iterative Problem Solving](#iterative)
@@ -232,8 +234,8 @@ Fortunately, we have specific notations to describe these bounds, so we don't ha
   - Also does not indicate a tight bound
 - $\Theta(?)$
   - Pronounced "Big-Theta"
-  - Only applicable when $O(f()) == \Theta(f())$ where $f()$ is some arbitrary function
-  - Represents the strongest promise, and should always be used when possible
+  - Only applicable when $O(f()) == \Omega(f())$ where $f()$ is some arbitrary function
+  - Represents the strongest promise, and should be used when possible
 
 ---
 
@@ -503,8 +505,6 @@ We must directly modify the given array, allocate a new array on the heap and re
 
 ---
 
----
-
 ### Implementation and Analysis
 
 Open VS Code, you should be on a branch other than master.
@@ -520,7 +520,7 @@ git merge upstream/master
 git checkout -b lab/iterative
 ```
 
-Compile and run with `g++ -std=c++11 source/functions.cpp && ./a.out
+Compile and run with `g++ -std=c++11 source/functions.cpp && ./a.out`
 
 ---
 name: recursive
@@ -551,7 +551,7 @@ The hard part is figuring out how to recursively work down to the base case!
 --
 
 ```c++
-int multiply(int a, int b) {
+int multiply(unsigned int a, unsigned int b) {
   return (a == 0) ? 0 : multiply(a - 1, b) + b;
 }
 ```
@@ -568,7 +568,7 @@ As a rule of thumb, select the smallest base case possible.
 
 Example: Array Sum
 
-```
+```algorithm
 array = Random numbers
 n = Length of array
 Algorithm A(array, n):
