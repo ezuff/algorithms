@@ -17,14 +17,13 @@ void LinkedList::push_front(int d) {
   Node* n = new Node(d);
   if (!head) {
     head = n;
-    n->next = head;
+    n->next = n;
+    n->prev = n;
   } else {
-    Node* iter = head;
-    while (iter->next != head) {
-      iter = iter->next;
-    }
-    iter->next = n;
     n->next = head;
+    n->prev = head->prev;
+    n->prev->next = n;
+    head->prev = n;
     head = n;
   }
   ++len;
@@ -36,12 +35,9 @@ int LinkedList::pop_front() {
   if (len == 1) {
     head = nullptr;
   } else {
-    Node* iter = head;
-    while (iter->next != head) {
-      iter = iter->next;
-    }
-    head = head->next;
-    iter->next = head;
+    head->next->prev = head->prev;
+    head->prev->next = head->next;
+    head = to_remove->next;
   }
   delete to_remove;
   --len;
@@ -66,32 +62,26 @@ void LinkedList::push_back(int d) {
   Node* n = new Node(d);
   if (!head) {
     head = n;
-    n->next = head;
+    n->prev = n;
+    n->next = n;
   } else {
-    Node* iter = head;
-    while (iter->next != head) {
-      iter = iter->next;
-    }
-    iter->next = n;
     n->next = head;
+    n->prev = head->prev;
+    n->prev->next = n;
+    head->prev = n;
   }
   ++len;
 }
 
 int LinkedList::pop_back() {
-  Node* to_remove;
+  Node* to_remove = head->prev;
+  int rval = to_remove->data;
   if (len == 1) {
-    to_remove = head;
     head = nullptr;
   } else {
-    Node* iter = head;
-    while (iter->next->next != head) {
-      iter = iter->next;
-    }
-    to_remove = iter->next;
-    iter->next = head;
+    head->prev = to_remove->prev;
+    to_remove->prev->next = head;
   }
-  int rval = to_remove->data;
   delete to_remove;
   --len;
   return rval;
@@ -105,13 +95,20 @@ int LinkedList::at(int idx) {
   if (idx < 0 || (unsigned int)idx >= len)
     throw "Bad index";
 
-  // Iterate to the element.
+  // Iterate to the element from the head or tail, whichever is closer.
   Node* iter = head;
-  for (int i = 0; i < idx; ++i) {
-    iter = iter->next;
+  if ((unsigned int)idx <= len / 2) {
+    while (--idx >= 0) {
+      iter = iter->next;
+    }
+  } else {
+    iter = iter->prev;
+    while (++idx < (int)len) {
+      iter = iter->prev;
+    }
   }
 
-  // Return it's data.
+  // Return its data.
   return iter->data;
 }
 
@@ -124,8 +121,15 @@ int LinkedList::set(int idx, int d) {
     throw "Bad index";
 
   Node* iter = head;
-  while (--idx >= 0) {
-    iter = iter->next;
+  if ((unsigned int)idx <= len / 2) {
+    while (--idx >= 0) {
+      iter = iter->next;
+    }
+  } else {
+    iter = iter->prev;
+    while (++idx < (int)len) {
+      iter = iter->prev;
+    }
   }
   int old = iter->data;
   iter->data = d;
@@ -140,11 +144,20 @@ void LinkedList::push(int d, int idx) {
   } else {
     Node* n = new Node(d);
     Node* iter = head;
-    while (--idx > 0) {
-      iter = iter->next;
+    if ((unsigned int)idx < len / 2) {
+      while (--idx > 0) {
+        iter = iter->next;
+      }
+    } else {
+      iter = iter->prev;
+      while (++idx <= (int)len) {
+        iter = iter->prev;
+      }
     }
     n->next = iter->next;
+    n->prev = iter;
     iter->next = n;
+    n->next->prev = n;
     ++len;
   }
 }
@@ -156,11 +169,19 @@ int LinkedList::pop(int idx) {
     return pop_back();
   } else {
     Node* iter = head;
-    while (--idx > 0) {
-      iter = iter->next;
+    if ((unsigned int)idx < len / 2) {
+      while (--idx > 0) {
+        iter = iter->next;
+      }
+    } else {
+      iter = iter->prev;
+      while (++idx <= (int)len) {
+        iter = iter->prev;
+      }
     }
     Node* to_remove = iter->next;
     iter->next = to_remove->next;
+    iter->next->prev = iter;
     int ret = to_remove->data;
     delete to_remove;
     --len;
@@ -177,7 +198,6 @@ void LinkedList::clear() {
     delete to_remove;
   }
   head = nullptr;
-  len = 0;
 }
 
 void LinkedList::remove(int d) {
@@ -191,6 +211,7 @@ void LinkedList::remove(int d) {
       if (iter->next->data == d) {
         Node* to_remove = iter->next;
         iter->next = to_remove->next;
+        iter->next->prev = iter;
         delete to_remove;
         --len;
         break;
@@ -204,16 +225,16 @@ void LinkedList::remove(int d) {
 void LinkedList::reverse() {
   if (len <= 1)
     return;
-  Node* prev = head;
-  Node* curr = head->next;
+  Node* prev = head->prev;
+  Node* curr = head;
   Node* next;
-  while (curr != head) {
+  do {
     next = curr->next;
     curr->next = prev;
+    curr->prev = next;
     prev = curr;
     curr = next;
-  }
-  curr->next = prev;
+  } while (curr != head);
   head = prev;
 }
 
