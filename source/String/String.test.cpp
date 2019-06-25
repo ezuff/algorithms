@@ -1,5 +1,5 @@
-#ifndef DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+<<<<<<< HEAD:source/String/string.test.cpp
 #endif
 
 <<<<<<< HEAD:source/string.hpp
@@ -152,6 +152,11 @@ class String {
 #include "../doctest.h"
 #include "string.hpp"
 >>>>>>> upstream/master:source/String/string.test.cpp
+=======
+#include "../doctest.h"
+
+#include "String.hpp"
+>>>>>>> upstream/master:source/String/String.test.cpp
 
 TEST_CASE("Append") {
   String s;
