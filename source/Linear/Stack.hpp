@@ -9,11 +9,7 @@
  */
 class Stack {
  private:
-<<<<<<< HEAD
     LinkedList* list;
-=======
-  LinkedList* list;
->>>>>>> upstream/master
 
  public:
   Stack();
