@@ -1,4 +1,5 @@
 #pragma once
+#include "LinkedList.hpp"
 
 /** Stack
  * A container class that stores data using a LIFO
@@ -6,6 +7,8 @@
  */
 class Stack {
  private:
+    LinkedList* list;
+
  public:
   Stack();
   ~Stack();
