@@ -9,7 +9,11 @@
  *   Otherwise, print an exception.
  */
 int main() {
-  char expression[] = "1 + 2";
-  std::cout << twostack(expression) << std::endl;
+  char expression[] = "1 + 3";
+  try{
+    std::cout << twostack(expression) << std::endl;
+  }catch(int i){
+      std::cout << "Invalid Expression" << std::endl;
+  }
   return 0;
 }

@@ -1,21 +1,23 @@
-#include "../Linear/Stack.cpp"
-#include "../String/String.cpp"
-#include "../Linear/SLL.cpp"
-#include "../Functions/functions.cpp"
+#include "../Linear/Stack.hpp"
+#include "../String/String.hpp"
+#include "../Functions/functions.hpp"
+#include "../Linear/LinkedList.hpp"
 
 /** Djikstra's Two Stack Algorithm
  * <Place your notes and analysis here>
  * O(n)
  */
-double twostack(char* expression) {
+ double twostack(char* expression){
     Stack* opers = new Stack();
 	Stack* values = new Stack();
 
     String s = String(expression);
+    int len = s.size();
 
-    for (int i = 0; i < s.size(); i++){
+    for (int i = 0; i < len; i++){
         if (s.at(i) == '+' || s.at(i) == '-' || s.at(i) == '*' || s.at(i) == '/' || s.at(i) == '^'){
             opers->push(s.at(i));
+            std::cout << opers->top() << std::endl;
         }
         else if (s.at(i) >= '0' && s.at(i) <= '9'){
             values->push((int)s.at(i) - 48);
@@ -46,6 +48,8 @@ double twostack(char* expression) {
                     break;
             }
             values->push(result);
+        }else if (s.find(')') == s.size()){
+            throw i;
         }
     }
 

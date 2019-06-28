@@ -1,8 +1,6 @@
 #pragma once
 #include "LinkedList.hpp"
 
-#include "LinkedList.hpp"
-
 /** Stack
  * A container class that stores data using a LIFO
  * (last in, first out) scheme.
