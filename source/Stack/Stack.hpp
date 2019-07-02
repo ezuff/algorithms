@@ -1,5 +1,10 @@
 #pragma once
+<<<<<<< HEAD:source/Linear/Stack.hpp
 #include "LinkedList.hpp"
+=======
+
+#include "../LinkedList/LinkedList.hpp"
+>>>>>>> upstream/master:source/Stack/Stack.hpp
 
 /** Stack
  * A container class that stores data using a LIFO
