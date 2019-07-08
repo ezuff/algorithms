@@ -1,24 +1,6 @@
 #pragma once
 #include <iostream>
-
-/** Red-Black Node Class */
-class Node {
- private:
-  // A 1 is a red link and a 0 is a black link
-  int data;
-  bool color;
-  Node* left;
-  Node* right;
-
- public:
-  ~Node() {}
-
-  Node(int data = 0, bool color = true) : data(data), color(color) {
-    left = right = nullptr;
-  }
-
-  friend class RBTree;
-};
+#include "Node.hpp"
 
 /** Red-Black Tree Class */
 class RBTree {
@@ -85,7 +67,7 @@ class RBTree {
   void postorder(Node* n, std::ostream& oss);
 
   Node* deleteMax(Node* temp);
-  Node* deleteMin(Node* temp);
+  Node* deleteMin(Node* temp, bool first);
 
   int min(Node* subtree, bool first);
 
