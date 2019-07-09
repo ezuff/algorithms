@@ -4,6 +4,7 @@
 #include "../Functions/functions.hpp"
 #include "../Trees/BST.hpp"
 #include "../Trees/RBTree.hpp"
+#include "../Trees/MinHeap.hpp"
 
 /* Helper Functions */
 
@@ -186,4 +187,14 @@ void treesort(int* arr, int n) {
     // Save it.
     arr[i] = stringtoint(num);
   }
+}
+
+void heapsort(int* arr, int n) {
+    MinHeap h;
+    for(int i = 0; i < n; i++) {
+        h.push(arr[i]);
+    }
+    for(int j = 0; j < n; j++) {
+        arr[j] = h.pop();
+    }
 }

@@ -71,18 +71,18 @@ void test_sort(sort_fn func) {
   }
 }
 
-// TEST_CASE("Benchmark") { 
+// TEST_CASE("Benchmark") {
 //   int size = 1000000;
-//   int arr[size]; 
+//   int arr[size];
 
 //   std::vector<int> vec;
 //   for (int i = 0; i < 20; ++i) {
 //     fill::random(arr, size, 0);
-    
+
 //     auto start = std::chrono::high_resolution_clock::now();
 //     advancedsort(arr, size);
 //     auto stop = std::chrono::high_resolution_clock::now();
-    
+
 //     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
 //     vec.push_back(duration);
 //   }
@@ -193,4 +193,8 @@ TEST_CASE("Hybrid Sort") {
 
 TEST_CASE("Tree Sort") {
   test_sort(treesort);
+}
+
+TEST_CASE("Heap Sort") {
+    test_sort(heapsort);
 }

@@ -11,18 +11,13 @@ functions: source/Functions/functions.test.cpp functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-sorts: source/Sorts/sorts.test.cpp sorts.o functions.o BST.o
+sorts: source/Sorts/sorts.test.cpp sorts.o functions.o BST.o MinHeap.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-<<<<<<< HEAD
-TwoStack: source/Algorithms/twostack.tests.cpp source/Linear/Stack.cpp source/String/String.cpp source/Linear/SLL.cpp source/Functions/functions.cpp
-	$(CXX) $(FLAGS) $^ && ./a.out
-=======
 String: source/String/String.test.cpp String.o functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
->>>>>>> upstream/master
 
 %: source/LinkedList/LinkedList.test.cpp source/LinkedList/%.cpp
 	$(CXX) $(FLAGS) $^
@@ -36,11 +31,6 @@ Stack: source/Stack/Stack.test.cpp Stack.o $(if $(LIST),$(LIST).o,SLL.o)
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-<<<<<<< HEAD
-BST: source/Trees/BST.test.cpp source/Trees/BST.cpp
-	$(CXX) $(FLAGS) $^ && ./a.out
-
-=======
 Dequeue: source/Queue/Dequeue.test.cpp Dequeue.o $(if $(LIST),$(LIST).o,DLL.o)
 	$(CXX) $(FLAGS) $^
 	./a.out
@@ -57,7 +47,6 @@ calculator: calculator.cpp Stack.o SLL.o String.o functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
->>>>>>> upstream/master
 all: $(TARGETS)
 
 .PHONY: clean
