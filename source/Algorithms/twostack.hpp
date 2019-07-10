@@ -4,7 +4,12 @@
 #include "../String/String.hpp"
 
 /** Djikstra's Two Stack Algorithm
+<<<<<<< HEAD
  * <Place your notes and analysis here>
+=======
+ * Iterates through an in-fix, fully-parenthesized, mathematical equation,
+ * utilizing two stacks to evaluate said expression efficiently.
+>>>>>>> upstream/master
  * O(n)
  */
 
