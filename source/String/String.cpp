@@ -279,12 +279,9 @@ String String::substr(int start, int end) const {
     ret.append(array[i]);
   return ret;
 }
-<<<<<<< HEAD
-=======
 
 void String::print(std::ostream& oss) {
   for (int i = 0; array[i]; ++i)
     oss << array[i];
   oss << std::endl;
 }
->>>>>>> upstream/master

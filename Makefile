@@ -17,13 +17,8 @@ functions: source/Functions/functions.test.cpp functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-<<<<<<< HEAD
-sorts: source/Sorts/sorts.test.cpp sorts.o functions.o BST.o MinHeap.o
-	$(CXX) $(FLAGS) $^
-=======
-$(SORTS): source/Sorts/sort.test.cpp functions.o BST.o RBTree.o
+$(SORTS): source/Sorts/sort.test.cpp functions.o BST.o RBTree.o MinHeap.o Stack.o
 	$(CXX) $(FLAGS) $^ source/Sorts/$@.cpp
->>>>>>> upstream/master
 	./a.out
 
 String: source/String/String.test.cpp String.o functions.o
