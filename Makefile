@@ -17,7 +17,7 @@ functions: source/Functions/functions.test.cpp functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-$(SORTS): source/Sorts/sort.test.cpp functions.o BST.o RBTree.o MinHeap.o Stack.o
+sorts: source/Sorts/sorts.test.cpp functions.o BST.o RBTree.o MinHeap.o Stack.o SLL.o
 	$(CXX) $(FLAGS) $^ source/Sorts/$@.cpp
 	./a.out
 
@@ -25,7 +25,7 @@ String: source/String/String.test.cpp String.o functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-$(LISTS): source/LinkedList/LinkedList.test.cpp 
+$(LISTS): source/LinkedList/LinkedList.test.cpp
 	$(CXX) $(FLAGS) $^ source/LinkedList/$@.cpp && ./a.out
 
 Queue: source/Queue/Queue.test.cpp Queue.o $(if $(LIST),$(LIST).o,SLL.o)

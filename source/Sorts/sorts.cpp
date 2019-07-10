@@ -16,12 +16,12 @@ void copy_arr(int* arr, int* temp, int n) {
 }
 
 // O(1)
-void swap(int* y, int* x) {
-  int temp;
-  temp = *y;
-  *y = *x;
-  *x = temp;
-}
+// void swap(int* y, int* x) {
+//   int temp;
+//   temp = *y;
+//   *y = *x;
+//   *x = temp;
+// }
 
 // Worst Case: O(n^2)
 // Best Case: O(n)
@@ -71,22 +71,22 @@ void mergesort(int* arr, int n) {
 }
 
 // O(n)
-void merge(int* arr, int n, int mid) {
-  int* temp = new int[n];
-  copy_arr(arr, temp, n);
+// void merge(int* arr, int n, int mid) {
+//   int* temp = new int[n];
+//   copy_arr(arr, temp, n);
 
-  int j = 0;
-  int k = mid;
-  for (int i = 0; i < n; i++) {
-    // If k is consumed, or the element at j is better, take j.
-    if (k >= n || (j < mid && temp[j] <= temp[k]))
-      arr[i] = temp[j++];
-    // Otherwise take k.
-    else
-      arr[i] = temp[k++];
-  }
-  delete[] temp;
-}
+//   int j = 0;
+//   int k = mid;
+//   for (int i = 0; i < n; i++) {
+//     // If k is consumed, or the element at j is better, take j.
+//     if (k >= n || (j < mid && temp[j] <= temp[k]))
+//       arr[i] = temp[j++];
+//     // Otherwise take k.
+//     else
+//       arr[i] = temp[k++];
+//   }
+//   delete[] temp;
+// }
 
 // Best Case: O(n log n)
 // Worst Case: O(n^2)
@@ -103,22 +103,22 @@ void quicksort(int* arr, int n) {
 }
 
 // O(n)
-int partition(int* arr, int lo, int hi) {
-  int i = lo + 1, j = hi;
-  while (true) {
-    while (i < hi && arr[i] <= arr[lo])
-      i++;
-    while (j > lo && arr[j] >= arr[lo])
-      j--;
-    if (j <= i) {
-      break;
-    }
-    swap(&arr[i], &arr[j]);
-  }
+// int partition(int* arr, int lo, int hi) {
+//   int i = lo + 1, j = hi;
+//   while (true) {
+//     while (i < hi && arr[i] <= arr[lo])
+//       i++;
+//     while (j > lo && arr[j] >= arr[lo])
+//       j--;
+//     if (j <= i) {
+//       break;
+//     }
+//     swap(&arr[i], &arr[j]);
+//   }
 
-  swap(&arr[lo], &arr[j]);
-  return j;
-}
+//   swap(&arr[lo], &arr[j]);
+//   return j;
+// }
 
 /** Hybrid Quick + Bubble
  * Worst Case: O(n^2)
@@ -189,6 +189,7 @@ void treesort(int* arr, int n) {
   }
 }
 
+// O(n)
 void heapsort(int* arr, int n) {
     MinHeap h;
     for(int i = 0; i < n; i++) {
