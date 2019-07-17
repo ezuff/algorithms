@@ -29,8 +29,6 @@ unsigned int List::length() {
   return len;
 }
 
-
-
 int List::index(String& d) {
   int i = 0;
   for (Node* iter = head; iter; iter = iter->next, ++i) {
@@ -99,8 +97,8 @@ void List::print(std::ostream& oss) {
   std::cout << "Length " << len << std::endl;
   Node* temp = head;
   while (temp) {
-    oss << temp->val << ", "; 
-    temp->key->print(); 
+    oss << temp->val << ", ";
+    temp->key->print();
     std::cout << std::endl;
     temp = temp->next;
   }

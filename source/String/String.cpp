@@ -41,7 +41,7 @@ String::String(char* str) {
   // Fill our array up, including the null.
   for (int i = 0; i <= length; ++i)
     array[i] = str[i];
-  
+
 
   // Adjust private variables.
   _capacity = length;
@@ -292,19 +292,13 @@ String String::substr(int start, int end) const {
 void String::print(std::ostream& oss) const {
   for (int i = 0; array[i]; ++i)
     oss << array[i];
-<<<<<<< HEAD
   oss << std::endl;
-}
-=======
 }
 
 std::ostream& operator<<(std::ostream& oss, const String& str) {
   str.print(oss);
   return oss;
 }
-<<<<<<< HEAD
->>>>>>> upstream/master
-=======
 
 char String::pop_back() {
   if (empty())
@@ -313,4 +307,3 @@ char String::pop_back() {
   array[_size--] = '\0';
   return c;
 }
->>>>>>> upstream/master
