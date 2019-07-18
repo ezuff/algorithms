@@ -8,16 +8,11 @@
  */
 class Graph {
  private:
-<<<<<<< HEAD
-  std::vector<std::vector<int>> table;
-  unsigned int vert, edg;
-=======
   int** matrix;
   int* node_values;
   unsigned int num_nodes;
   unsigned int num_edges;
 
->>>>>>> upstream/master
  public:
   /** Constructor
    * Creates a graph with n vertices but no edges.
