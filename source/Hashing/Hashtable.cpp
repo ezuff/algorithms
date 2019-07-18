@@ -1,5 +1,4 @@
 #include "Hashtable.hpp"
-#include "SLL.cpp"
 
 int HashTable::hash(const String& key){
     int hash = 0;
