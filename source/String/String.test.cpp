@@ -154,7 +154,6 @@ class String {
 >>>>>>> upstream/master:source/String/string.test.cpp
 =======
 #include "../doctest.h"
-
 #include "String.hpp"
 >>>>>>> upstream/master:source/String/String.test.cpp
 
@@ -270,7 +269,10 @@ TEST_CASE("Erase") {
   s.erase('T');
   CHECK_EQ(s.at(0), 'e');
   CHECK_EQ(s.at(14), '.');
+<<<<<<< HEAD
   CHECK_THROWS(s.at(15));
+=======
+>>>>>>> upstream/master
   CHECK_EQ(s.at(13), '3');
   CHECK_THROWS(s.at(16));
 }
