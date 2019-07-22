@@ -1,5 +1,11 @@
 #include "../Graphs/Graph.hpp"
 
+/* start at a node
+have a path length incriment after each node
+if node is already visted check the path length
+ */
+
+
 #define UNVISITED 0
 #define VISITED 1
 

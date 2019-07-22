@@ -13,6 +13,10 @@
  * arr should be directly modified such that it's contents
  * are in lexicographically sorted order.
  */
+bool validnum(char c) {
+  return 'a' <= c && c <= 'z';
+}
+
 void sort(String* arr[], int n) {
     Trie temp;
     std::ostringstream oss;
@@ -20,7 +24,15 @@ void sort(String* arr[], int n) {
         temp.put((const char*)arr[i], i);
     }
     temp.print(oss);
-    for(int j = 0; j < n; ++j){
-        //arr[j] = (String*)oss.str()[j];
+    int j = 0;
+    for(int k = 0; k < n; ++k){
+        String* letter;
+        while(!validnum(oss.str()[j])){
+            ++j;
+        }
+        while(validnum(oss.str()[j])){
+            letter->append(oss.str()[j++]);
+        }
+        arr[k] = letter;
     }
 }
