@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #include <iostream>
 
+=======
+>>>>>>> upstream/master
 /** solve_maze(int** maze, int n)
  * Recursively decides whether the maze is solvable from the given position
  * using backtracking.
@@ -8,6 +11,7 @@
  * once (i.e. not diagonally). A position in the maze is valid to move to
  * only if it contains a 1.
  */
+<<<<<<< HEAD
 bool solve_maze(int** maze, int n, int position[2]){
     int x = position[0], y = position[1];
     if(maze[x][y] == 0 || x > n - 1 || y > n - 1){
@@ -23,13 +27,42 @@ bool solve_maze(int** maze, int n, int position[2]){
         return right || down;
     }
     return false;
+=======
+bool solve_maze(int** maze, int n, int position[2]) {
+  if (position[0] == n - 1 && position[1] == n - 1)
+    return true;
+
+  bool result;
+  ++(position[1]);
+  if (position[1] < n && maze[position[0]][position[1]] == 1) {
+    result = solve_maze(maze, n, position);
+    if (result)
+      return true;
+  }
+  --(position[1]);
+  ++(position[0]);
+  if (position[0] < n && maze[position[0]][position[1]] == 1) {
+    result = solve_maze(maze, n, position);
+    if (result)
+      return true;
+  }
+  --(position[0]);
+  return false;
+>>>>>>> upstream/master
 }
 
 /** solve_maze(int** maze, int n)
  * Decides whether the maze is solvable from position (0, 0) by making a call
  * to the recursive function by the same name.
  */
+<<<<<<< HEAD
 bool solve_maze(int** maze, int n){
     int start[] = {0, 0};
     return solve_maze(maze, n, start);
 }
+=======
+bool solve_maze(int** maze, int n) {
+  int start[2] = {0, 0};
+  return solve_maze(maze, n, start);
+}
+>>>>>>> upstream/master
