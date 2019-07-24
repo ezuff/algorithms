@@ -74,4 +74,7 @@ class HashTable {
    * Calls the Linked List print() method on each of its chains
    */
   void print(std::ostream& oss = std::cout);
+
+
+  int return_hash(const String& key);
 };

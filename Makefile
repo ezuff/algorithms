@@ -27,11 +27,7 @@ String: String.test.o functions.o
 twostack.test: twostack.test.o Stack.o SLL.o String.o functions.o
 lexicographic.test: lexicographic.test.o Trie.o String.o functions.o
 hamiltoniancycle.test: Graph.o
-<<<<<<< HEAD
-pathfinding.test: pathfinding.test.o
-=======
 karprabin.test: String.o functions.o
->>>>>>> upstream/master
 
 # Complex Depedencies
 .SECONDEXPANSION:
